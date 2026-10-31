@@ -24,6 +24,20 @@ GitHub Actions（macOS 机器）        你的 Windows
 
 ## 路线一：云编译（当前可用）
 
+> **现状（2026-10-31）**：这条线跑在 `ycl3689347-spec/shizhi-xuetang-build` 这个
+> 专用仓库的 `ios-build` 分支上。它只是「把 `ios/` + 最新网页资源凑齐了送去编译」，
+> 不承载题库主线，所以是单提交快照（原仓库 `cn-math-taxonomy` 是浅克隆，历史对象
+> 不全，推送会报 `did not receive expected object`）。
+>
+> 两处必须记住的坑：
+>
+> 1. **runner 必须 `macos-15` 起步**。XcodeGen 2.46 生成的是 `objectVersion = 77`
+>    （Xcode 16 的工程格式），`macos-14` 那台只有 Xcode 15.4，会直接报
+>    `cannot be opened because it is in a future Xcode project file format (77)`。
+>    workflow 里另外加了一层兜底：generate 完若仍是 77，就 `sed` 降成 56。
+> 2. **改完 workflow 要走普通提交推**。force push 一份全新历史时，GitHub 算不出
+>    前后 diff，`paths` 过滤会判成「没有相关改动」，构建不会启动。
+
 ### 1. 推代码触发构建
 
 ```bash
