@@ -1,0 +1,12 @@
+# 构建工具链约 570 MB，体积太大且可从官方下载，不入库
+tools/
+# 签名密钥：私有，不入库（换机器请手动拷贝）
+keys/
+# 中间产物
+build/
+out/
+dl/
+# data.js 由 build_assets.py 从 ../data/*.json 生成
+app/assets/www/data.js
+# 验收截图用 node shot_wide.js 随时重出，几 MB 的 PNG 不必进仓库
+shots/

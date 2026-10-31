@@ -1,0 +1,33 @@
+node_modules/
+.DS_Store
+*.log
+claude*.log
+*.tgz
+*.zip
+__pycache__/
+*.pyc
+.env
+.env.*
+PROMPT*.md
+chain.sh
+.cf-token-workers
+
+# ---- iOS ----
+# 网页资源由 ios/scripts/prepare.sh 从 android/app/assets/www 同步过来，
+# 不进版本库（1.3MB 的 data.js 存两份迟早改一边忘一边）
+ios/Resources/www/
+# XcodeGen 的产物，改 project.yml 重新生成即可
+ios/*.xcodeproj/
+ios/*.xcworkspace/
+ios/build/
+ios/Payload/
+*.ipa
+
+# ---- 题库 ----
+# bank/src/*.json 是手写题库（要进版本库），_built.json 是 build.py 的中间产物
+android/bank/_built.json
+
+# ---- 截图 / 自检产物 ----
+# check_*.js、shot_*.js 跑出来的 PNG，用来肉眼核对版式，不进版本库
+shots/
+android/shots/

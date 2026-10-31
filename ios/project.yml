@@ -1,0 +1,68 @@
+# XcodeGen 工程描述。改工程配置就改这里，不要手改 .xcodeproj
+# （.xcodeproj 是生成物，不进版本库）。
+#
+#   brew install xcodegen && cd ios && xcodegen generate
+#
+# 为什么不直接提交 .xcodeproj：pbxproj 是一坨手写容易错的 plist，冲突也难解。
+# XcodeGen 用这份 YAML 生成，Windows / Linux 上也能改，CI 里一条命令就能重建。
+
+name: ShizhiXuetang
+
+options:
+  bundleIdPrefix: com.gm
+  deploymentTarget:
+    iOS: "15.0"
+  createIntermediateGroups: true
+  groupSortPosition: top
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    IPHONEOS_DEPLOYMENT_TARGET: "15.0"
+    # Xcode 15 默认打开脚本沙盒，某些打包流程会因为读写 DerivedData 外的路径失败
+    ENABLE_USER_SCRIPT_SANDBOXING: "NO"
+
+targets:
+  ShizhiXuetang:
+    type: application
+    platform: iOS
+    deploymentTarget: "15.0"
+
+    # 逐个文件列出，而不是整目录 —— 否则 Sources/Info.plist 会被当成资源再拷一遍
+    sources:
+      - Sources/AppDelegate.swift
+      - Sources/WebViewController.swift
+      - Sources/LocalSchemeHandler.swift
+      - Resources/Assets.xcassets
+      # folder reference（蓝色文件夹）：整个 www 目录原样进 bundle，
+      # 包内路径就是 www/index.html，LocalSchemeHandler 以它为根。
+      # 用 group 的话文件会被打散到 bundle 根目录，相对路径全乱。
+      - path: Resources/www
+        type: folder
+
+    settings:
+      base:
+        INFOPLIST_FILE: Sources/Info.plist
+        GENERATE_INFOPLIST_FILE: "NO"
+        PRODUCT_BUNDLE_IDENTIFIER: com.gm.grade4
+        # 工程名和可执行名用 ASCII，中文名走 CFBundleDisplayName（桌面显示的那个）
+        PRODUCT_NAME: ShizhiXuetang
+        MARKETING_VERSION: "2.0.0"
+        CURRENT_PROJECT_VERSION: "17"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        TARGETED_DEVICE_FAMILY: "1,2"
+        CODE_SIGN_STYLE: Automatic
+        SUPPORTS_MACCATALYST: "NO"
+        SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: "NO"
+        SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD: "NO"
+
+schemes:
+  ShizhiXuetang:
+    build:
+      targets:
+        ShizhiXuetang: all
+    run:
+      config: Debug
+    archive:
+      config: Release

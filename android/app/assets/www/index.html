@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#f2f2f7">
+<title>拾知学堂 · 知识闯关</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<!-- 背景层：渐变 + 漂浮图形 -->
+<div id="bg" aria-hidden="true">
+  <span class="blob b1"></span>
+  <span class="blob b2"></span>
+  <span class="blob b3"></span>
+  <div class="grid-floor"></div>
+  <div class="sprinkles"></div>
+</div>
+<!-- 粒子层：答对爆裂 -->
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<div id="app">
+  <header id="bar">
+    <div class="bar-left">
+      <button id="btn-back" class="icon-btn" aria-label="返回" hidden>
+        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="titles">
+        <h1 id="title">拾知学堂</h1>
+        <p id="subtitle"></p>
+      </div>
+    </div>
+    <div class="bar-right">
+      <div id="hud" class="hud" hidden>
+        <span class="hud-item"><i class="hud-ic fire"></i><b id="hud-combo">0</b> 连对</span>
+        <span class="hud-item"><i class="hud-ic star"></i><b id="hud-score">0</b> 分</span>
+      </div>
+      <button id="btn-sound" class="icon-btn" aria-label="音效开，点一下静音" aria-pressed="true">
+        <svg class="ic-on" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+          <path d="M4 9.5v5a1 1 0 001 1h3.2l4.4 3.4a.8.8 0 001.4-.6V5.7a.8.8 0 00-1.4-.6L8.2 8.5H5a1 1 0 00-1 1z" fill="currentColor"/>
+          <path d="M16.6 8.6a4.6 4.6 0 010 6.8M19.2 6a8.2 8.2 0 010 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <svg class="ic-off" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+          <path d="M4 9.5v5a1 1 0 001 1h3.2l4.4 3.4a.8.8 0 001.4-.6V5.7a.8.8 0 00-1.4-.6L8.2 8.5H5a1 1 0 00-1 1z" fill="currentColor"/>
+          <path d="M16.4 9.4l4.2 5.2M20.6 9.4l-4.2 5.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <button id="btn-stats" class="icon-btn" aria-label="学习进度">
+        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M5 19V10M12 19V5M19 19v-6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <aside id="side">
+    <nav id="subjects" class="chips" aria-label="学科"></nav>
+    <nav id="unitnav" class="unitnav" aria-label="单元快速跳转"></nav>
+    <div class="side-foot">
+      <div class="lv-legend">
+        <span><i class="dot-lv basic"></i>基础</span>
+        <span><i class="dot-lv standard"></i>提高</span>
+        <span><i class="dot-lv challenge"></i>拓展</span>
+        <span><i class="dot-lv advanced"></i>拔高</span>
+      </div>
+    </div>
+  </aside>
+
+  <main id="view" tabindex="-1"></main>
+
+  <footer id="actionbar" hidden>
+    <button id="btn-primary" class="primary">开始闯关</button>
+  </footer>
+</div>
+
+<!-- 角色：龙宝宝三态，随答题反馈换表情 -->
+<div id="pet" class="pet" aria-hidden="true">
+  <div class="pet-bubble" id="pet-bubble"></div>
+  <img class="pet-img" id="pet-face-idle" src="pet-idle.webp" alt="" draggable="false">
+  <img class="pet-img" id="pet-face-happy" src="pet-happy.webp" alt="" draggable="false">
+  <img class="pet-img" id="pet-face-sad" src="pet-sad.webp" alt="" draggable="false">
+</div>
+
+<div id="combo" class="combo" aria-hidden="true"><span></span></div>
+
+<script src="data.js"></script>
+<script src="sound.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
