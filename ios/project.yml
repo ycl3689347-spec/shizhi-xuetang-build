@@ -47,8 +47,8 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.gm.grade4
         # 工程名和可执行名用 ASCII，中文名走 CFBundleDisplayName（桌面显示的那个）
         PRODUCT_NAME: ShizhiXuetang
-        MARKETING_VERSION: "2.0.0"
-        CURRENT_PROJECT_VERSION: "17"
+        MARKETING_VERSION: "2.1.0"
+        CURRENT_PROJECT_VERSION: "18"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         TARGETED_DEVICE_FAMILY: "1,2"

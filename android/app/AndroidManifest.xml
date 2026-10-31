@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gm.grade4"
+    android:versionCode="18"
+    android:versionName="2.1.0">
+
+    <!-- 完全离线：不申请网络权限。VIBRATE 只是为了答错时震一下，
+         属于普通权限（安装时不弹窗、不给也能装），没有也就没震动。 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-sdk android:minSdkVersion="24" android:targetSdkVersion="34" />
+
+    <!-- 电视、平板可能没有触屏，别因此装不上 -->
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+
+    <!-- 声明支持任意屏幕宽高比（含 Pura X 这类 16:11 / 近方屏折叠机）。
+         不声明时部分 ROM 默认只放行约 1.86:1，超出会套「兼容模式」
+         —— 表现为 App 窗口四周留黑边、不铺满屏幕。 -->
+    <meta-data android:name="android.max_aspect" android:value="3.0" />
+
+    <!-- Android 11 起，App 默认看不见别的应用；连对播报要用系统 TTS，
+         不加这一段就「找不到引擎」，TextToSpeech 初始化直接失败。 -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+    </queries>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
+        android:supportsRtl="false"
+        android:hardwareAccelerated="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:resizeableActivity="true"
+            android:screenOrientation="sensorLandscape"
+            android:windowSoftInputMode="adjustResize"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout|keyboardHidden|uiMode|density|fontScale">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
